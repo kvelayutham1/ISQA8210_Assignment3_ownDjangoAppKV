@@ -3,9 +3,24 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<div class="jumbotron">
+<html>
+ <head>
+        <meta charset="UTF-8">
+        <title>AK Technologies</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    </head>
+<body>
+  <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+<div class="jumbotron" style="background-color:#dbf3ff">
   <h1 class="display-4">Manager's Self Service</h1>
   <p class="lead">One stop link to manage Employees and Projects</p>
  <a class="btn btn-primary btn-lg" href="{%  url 'project_list' %}" role="tab" aria-controls="Projects" aria-selected="false">Projects</a>
 </div>
+</body>
+</html>
 {% endblock content %}

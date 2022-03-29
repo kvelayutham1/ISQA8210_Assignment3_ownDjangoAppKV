@@ -3,10 +3,26 @@
 {% block title %}Log In{% endblock title %}
 
 {% block content %}
+<html lang="en">
+ <head>
+        <meta charset="UTF-8">
+        <title>AK Technologies</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    </head>
+ <body>
+
+  <style>
+        body {
+            background-color: beige;
+        }
+    </style>
 <h2>Log In</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-success ml-2" type="submit">Log In</button>
 </form>
+ </body>
+</html>
 {% endblock content %}
