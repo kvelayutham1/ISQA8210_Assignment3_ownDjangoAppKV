@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="jumbotron">
-  <h1 class="display-4">Manager's Self Serive</h1>
+  <h1 class="display-4">Manager's Self Service</h1>
   <p class="lead">One stop link to manage Employees and Projects</p>
- <a class="nav-link" id="profile-tab" data-toggle="tab" href="{%  url 'project_list' %}" role="tab" aria-controls="Projects" aria-selected="false">Projects</a>
+ <a class="btn btn-primary btn-lg" href="{%  url 'project_list' %}" role="tab" aria-controls="Projects" aria-selected="false">Projects</a>
 </div>
 {% endblock content %}

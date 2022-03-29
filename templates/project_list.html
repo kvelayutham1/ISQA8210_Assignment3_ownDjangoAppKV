@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+    <a href="{% url 'project_new' %}" class="btn btn-default">Create New Projects</a>
     <div class="row">
         <h2 style="padding-left: 15Px">Project Information</h2>
     </div>
@@ -43,7 +44,7 @@
                 <th>SOW_no</th>
                 <th>Total Head count</th>
                 <th>Manager</th>
-
+                <th colspan="3">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -57,16 +58,11 @@
                     <td>{{ project.SOW_no }}</td>
                     <td>{{ project.total_headcount }}</td>
                     <td>{{ project.manager }}</td>
-<!--
-                    <td><a href="{% url 'crm:customer_edit' pk=customer.pk %}" class="btn btn-warning">Edit</a>
-                    <td><a href="{% url 'crm:customer_delete' pk=customer.pk %}"
+                    <td><a href="{% url 'project_edit' pk=project.pk %}" class="btn btn-warning">Edit</a>
+                    <td><a href="{% url 'project_delete' pk=project.pk %}"
                         onclick="return confirm('Are you sure you want to delete?')"
                         class="btn btn-danger">Delete</a>
                     </td>
-
-                    <td><a href="{% url 'crm:summary' pk=customer.pk %}"
-                           class="btn btn-primary">Summary</a>
--->
                 </tr>
             {% endfor %}
             </tbody>
