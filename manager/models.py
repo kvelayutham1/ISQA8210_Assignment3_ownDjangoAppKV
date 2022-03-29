@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 # Create your models here.
 import users.models
@@ -35,8 +36,8 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
-    def get_absolute_url(self):
-        return reverse('home', args=[str(self.id)])
+#    def get_absolute_url(self):
+#        return reverse('home', args=[str(self.id)])
 
 
 class Employee(models.Model):

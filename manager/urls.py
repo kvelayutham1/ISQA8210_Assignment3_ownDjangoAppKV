@@ -13,13 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include, url
+
 from . import views
 from django.urls import path, re_path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('project_list', views.project_list, name='project_list'),
+#    path('', views.home, name='home'),
+#    re_path(r'^home/$', views.home, name='home'),
+    path('project_list/', views.project_list, name='project_list'),
+    path('project/create/', views.project_new, name='project_new'),
+    path('project/<int:pk>/edit/', views.project_edit, name='project_edit'),
+    path('project/<int:pk>/delete/', views.project_delete, name='project_delete'),
+    path('client_list/', views.client_list, name='client_list'),
+    path('client/create/', views.client_new, name='client_new'),
+    path('client/<int:pk>/edit/', views.client_edit, name='client_edit'),
+    path('client/<int:pk>/delete/', views.client_delete, name='client_delete'),
+    path('employee_list/', views.employee_list, name='employee_list'),
+    path('employee/create/', views.employee_new, name='employee_new'),
+    path('employee/<int:pk>/edit/', views.employee_edit, name='employee_edit'),
+    path('employee/<int:pk>/delete/', views.employee_delete, name='employee_delete'),
 ]
