@@ -25,7 +25,9 @@ urlpatterns = [
     path('assignment/', include('assignment.urls')),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-#    path('', include('manager.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
 ]

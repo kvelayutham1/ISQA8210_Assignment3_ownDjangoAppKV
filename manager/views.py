@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
+from assignment.models import Assignment
 
 # Create your views here.
 
@@ -69,7 +70,8 @@ def project_delete(request, pk):
     project.delete()
     return redirect('project_list')
 
-#Clients
+
+# Clients
 @login_required
 def client_new(request):
     if request.method == "POST":
@@ -121,7 +123,8 @@ def client_delete(request, pk):
     client.delete()
     return redirect('client_list')
 
-#Employee
+
+# Employee
 @login_required
 def employee_new(request):
     if request.method == "POST":
@@ -172,3 +175,11 @@ def employee_delete(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
     employee.delete()
     return redirect('employee_list')
+
+
+@login_required
+def employee_assignment(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    assignment = Assignment.objects.filter(employee_name=pk)
+    return render(request, 'employee_assignment.html',
+                  {'assignments': assignment, 'employee': employee})
