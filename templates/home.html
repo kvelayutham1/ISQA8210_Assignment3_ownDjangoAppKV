@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock title %}
 
 {% block content %}
@@ -16,11 +16,115 @@
             background-color: beige;
         }
     </style>
+
+
+
 <div class="jumbotron" style="background-color:#dbf3ff">
   <h1 class="display-4">Manager's Self Service</h1>
   <p class="lead">One stop link to manage Employees and Projects</p>
- <a class="btn btn-primary btn-lg" href="{%  url 'project_list' %}" role="tab" aria-controls="Projects" aria-selected="false">Projects</a>
+ <a class="btn btn-primary btn-lg" href="{%  url 'project_list' %}" role="tab" aria-controls="Get Started" aria-selected="false">Get Started</a>
 </div>
+
+ {% if user.is_authenticated %}
+       <div class="page-container">
+
+           <h2 class="top-menu">Hello {{ user.username }},</h2>
+           <p>Please choose from below options.</p>
+       </div>
+   {% endif %}
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static "images/clients.jpg" %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item active">
+      <img src="{% static "images/projects.jpg" %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item active">
+      <img src="{% static "images/employees.jpg" %}" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+
+
+<img src="{% static "images/clients.jpg" %}" class="rounded float-start" alt="...">
+  <img src="{% static "images/projects.jpg" %}" class="rounded float-end" alt="...">
+<img src="{% static "images/employees.jpg" %}" class="rounded float-end" alt="...">
+
+
+
+
+   <div class="content container">
+       <div class="row">
+           <div class="col-md-12">
+               <div class="links">
+                   <!-- Example row of columns -->
+                   <div class="row">
+                       <div class="col-md-3">
+                           <div class="thumbnail">
+                               <img src="{% static "images/clients.jpg" %}" alt="customer"/>
+                               <div class="caption">
+                                   <h2>Clients</h2>
+                                   <p>We see our success in our customers success </p>
+                                   <p><a class="btn btn-primary" href="{% url 'client_list' %}"
+                                         role="button">View
+                                       details &raquo;</a></p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="thumbnail">
+                               <img src="{% static "images/projects.jpg" %}" alt="cupcakes"/>
+                               <div class="caption">
+                                   <h2>Projects</h2>
+                                   <p>Great Services</p>
+                                   <p><a class="btn btn-primary" href="{% url 'project_list' %}"
+                                         role="button">View
+                                       details &raquo;</a></p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="thumbnail">
+                               <img src="{% static "images/employees.jpg" %}" alt="lunch"/>
+                               <div class="caption">
+                                   <h2>Employees</h2>
+                                   <p>Great Products.</p>
+                                   <p><a class="btn btn-primary" href="{% url 'employee_list' %}"
+                                         role="button">View
+                                       details &raquo;</a></p>
+                               </div>
+                           </div>
+                       </div>
+
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+
+
+
+
+
 </body>
 </html>
 {% endblock content %}

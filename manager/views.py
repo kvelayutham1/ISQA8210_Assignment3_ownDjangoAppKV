@@ -10,6 +10,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 from assignment.models import Assignment
 
+
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 now = timezone.now()
@@ -183,3 +187,14 @@ def employee_assignment(request, pk):
     assignment = Assignment.objects.filter(employee_name=pk)
     return render(request, 'employee_assignment.html',
                   {'assignments': assignment, 'employee': employee})
+
+
+@login_required
+def project_summary(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    assignment = Assignment.objects.filter(project_name=pk)
+    employee_name = get_object_or_404(Assignment, pk=pk)
+    employee = Employee.objects.filter(employee_name=employee_name)
+    return render(request, 'project_summary.html',
+                  {'assignments': assignment, 'project': project, 'employee': employee})
+

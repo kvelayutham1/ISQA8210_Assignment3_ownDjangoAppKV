@@ -1,5 +1,10 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 from .models import *
+from .models import Employee, Client, Project
 from .forms import *
 from django.urls import path, re_path
 from django.contrib.auth.decorators import login_required
@@ -22,6 +27,17 @@ def assignment_new(request):
 #            assignment.created_date = timezone.now()
             assignment.save()
             assignment = Assignment.objects.all
+            employee = Employee.objects.all
+            email = request.POST.get("email")
+            project_name = request.POST.get("project_name")
+            project_manager = request.POST.get("Project_manager")
+            email = request.POST.get("email")
+            subject = 'AK Infotech: Your new Project Assignment!'
+            message = f'You have a new Project Assignment Created. Please contact your project Manager for ' \
+                      f'further details'
+            html_message = render_to_string('employee_assignment.html', {'context': 'values'})
+            plain_message = strip_tags(html_message)
+            send_mail(subject, message, email, [settings.EMAIL_HOST_USER, email])
             return render(request, 'assignment_list.html',
                           {'assignments': assignment})
     else:

@@ -10,8 +10,8 @@ class DateInput(DateInput):
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
-        fields = ('employee_name', 'allocation_percentage', 'Project_manager', 'start_date', 'end_date', 'project_name',
-                  'comments')
+        fields = ('employee_name', 'allocation_percentage', 'Project_manager', 'start_date', 'end_date', 'email',
+                  'project_name', 'comments')
         widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),

@@ -20,6 +20,7 @@ class Assignment(models.Model):
     Project_manager = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     start_date = models.DateField(default=date(1, 1, 1))
     end_date = models.DateField(default=date(9999, 12, 31))
+    email = models.EmailField(max_length=100, default='example@gmail.com')
     project_name = models.ForeignKey(Project, related_name='client', max_length=50, blank=False,
                                      null=False, default=' ',
                                      on_delete=models.DO_NOTHING)
