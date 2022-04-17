@@ -13,7 +13,7 @@
     <body>
     <style>
         body {
-            background-color: beige;
+            background-color: aliceblue;
         }
     </style>
 
@@ -25,7 +25,9 @@
     <p>
     <a href="{% url 'project_new' %}" class="btn btn-default">Create New Project</a>
     </p>
-
+    <p>
+    <a href="{% url 'admin_projectlist_pdf' %}" class="btn btn-secondary">Project List in PDF</a>
+</p>
     <div>
         <table class="table table-striped table-bordered table-hover">
             <thead>

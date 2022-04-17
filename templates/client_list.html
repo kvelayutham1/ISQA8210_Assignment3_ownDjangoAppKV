@@ -13,7 +13,7 @@
     <body>
     <style>
         body {
-            background-color: beige;
+            background-color: aliceblue;
         }
     </style>
     <div class="container">
@@ -23,6 +23,9 @@
     </div>
     <p>
     <a href="{% url 'client_new' %}" class="btn btn-default">Create New Client</a>
+    </p>
+<p>
+    <a href="{% url 'clientlist_pdf' %}" class="btn btn-secondary">Client List in PDF</a>
     </p>
     <div>
         <table class="table table-striped table-bordered table-hover">

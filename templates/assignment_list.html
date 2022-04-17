@@ -13,7 +13,7 @@
     <body>
     <style>
         body {
-            background-color: beige;
+            background-color: aliceblue;
         }
     </style>
     <div class="container">
@@ -51,6 +51,7 @@
                     <td>{{ assignment.end_date }}</td>
                     <td>{{ assignment.project_name }}</td>
                     <td>{{ assignment.comments }}</td>
+ <!--                   <td><a href="{% url 'assignment_email' pk=assignment.pk %}" class="btn btn-dark">Send Notification</a> -->
                     <td><a href="{% url 'assignment_edit' pk=assignment.pk %}" class="btn btn-warning">Edit</a>
                     <td><a href="{% url 'assignment_delete' pk=assignment.pk %}"
                         onclick="return confirm('Are you sure you want to delete?')"

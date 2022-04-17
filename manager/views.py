@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from users.models import CustomUser
 from .models import *
 from .forms import *
 from django.urls import path, re_path
@@ -9,10 +11,15 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from assignment.models import Assignment
-
-
-from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
+from django.utils.safestring import mark_safe
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+import weasyprint
+from io import BytesIO
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -102,6 +109,18 @@ def client_list(request):
 
 
 @login_required
+def clientlist_pdf(request):
+    client = Client.objects.all()
+    html = render_to_string('pdf_clientlist.html',
+                            {'clients': client})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=client_list.pdf'
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
+        settings.STATIC_ROOT + 'css/pdf.css')])
+    return response
+
+
+@login_required
 def client_edit(request, pk):
     client = get_object_or_404(Client, pk=pk)
     if request.method == "POST":
@@ -155,6 +174,41 @@ def employee_list(request):
 
 
 @login_required
+def employeelist_pdf(request):
+    employee = Employee.objects.all()
+    html = render_to_string('pdf_employeelist.html',
+                            {'employees': employee})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=employee_list.pdf'
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
+        settings.STATIC_ROOT + 'css/pdf.css')])
+    return response
+
+
+@login_required
+def employeelist_pdf_mail(request):
+    employee = Employee.objects.all()
+    # construct email
+    employee_name = request.POST.get("employee_name")
+    subject = 'AK Infotech: Your new Project Assignment!'
+    message = f'You have a new Project Assignment Created. Please contact your project Manager for ' \
+              f'further details'
+    email = EmailMessage(subject,
+                         message,
+                         settings.EMAIL_HOST_USER,
+                         [CustomUser.email])
+    html = render_to_string('pdf_employeelist.html', {'employees': employee})
+    out = BytesIO()
+    stylesheets = [weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')]
+    weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
+    # attach PDF file
+    email.attach(f'employee_list.pdf', out.getvalue(), 'application/pdf')
+    email.send()
+    return render(request, 'employee_list.html',
+                  {'employees': employee})
+
+
+@login_required
 def employee_edit(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
     if request.method == "POST":
@@ -164,7 +218,6 @@ def employee_edit(request, pk):
             employee = form.save(commit=False)
             employee.updated_date = timezone.now()
             employee.save()
-            #            project = Project.objects.filter(created_date__lte=timezone.now())
             employee = Employee.objects.all()
             return render(request, 'employee_list.html',
                           {'employees': employee})
@@ -197,4 +250,57 @@ def project_summary(request, pk):
     employee = Employee.objects.filter(employee_name=employee_name)
     return render(request, 'project_summary.html',
                   {'assignments': assignment, 'project': project, 'employee': employee})
+
+
+@login_required
+def admin_projectsummary_pdf(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    assignment = Assignment.objects.filter(project_name=pk)
+    employee_name = get_object_or_404(Assignment, pk=pk)
+    employee = Employee.objects.filter(employee_name=employee_name)
+    html = render_to_string('pdf.html',
+                            {'assignments': assignment, 'project': project, 'employee': employee})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename={project.project_name}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
+        settings.STATIC_ROOT + 'css/pdf.css')])
+    return response
+
+
+@login_required
+def admin_projectsummary_pdf1(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    assignment = Assignment.objects.filter(project_name=pk)
+    employee_name = get_object_or_404(Assignment, pk=pk)
+    employee = Employee.objects.filter(employee_name=employee_name)
+    html = render_to_string('pdf.html',
+                            {'assignments': assignment, 'project': project, 'employee': employee})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename={project.project_name}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
+        settings.STATIC_ROOT + 'css/pdf.css')])
+    return response
+
+
+def projectsummary_pdf1(obj, pk):
+    return mark_safe('<a href="{}">PDF</a>'.format(
+        reverse('admin_projectsummary_pdf1', pk, args=[obj.id])))
+
+
+
+
+projectsummary_pdf1.short_description = 'ProjectSummary'
+
+
+@login_required
+def admin_projectlist_pdf(request):
+    project = Project.objects.all()
+    html = render_to_string('pdf_projectlist.html',
+                            {'projects': project})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=project_list.pdf'
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
+        settings.STATIC_ROOT + 'css/pdf.css')])
+    return response
+
 

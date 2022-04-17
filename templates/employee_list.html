@@ -13,7 +13,7 @@
     <body>
     <style>
         body {
-            background-color: beige;
+            background-color: aliceblue;
         }
     </style>
     <div class="container">
@@ -24,7 +24,9 @@
     <p>
     <a href="{% url 'employee_new' %}" class="btn btn-default">Create New Employee</a>
     </p>
-
+    <p>
+        <a href="{% url 'employeelist_pdf' %}" class="btn btn-secondary">Employee List in PDF</a>
+    </p>
     <div>
         <table class="table table-striped table-bordered table-hover">
             <thead>

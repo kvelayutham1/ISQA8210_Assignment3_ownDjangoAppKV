@@ -19,6 +19,8 @@ from django.urls import path, re_path
 
 urlpatterns = [
     path('assignment_list/', views.assignment_list, name='assignment_list'),
+    path('assignment/<int:pk>/assignment_email/', views.assignment_email, name='assignment_email'),
+#    path('assignment_list/assignmentlist_pdf/', views.assignmentlist_pdf, name='views.assignmentlist_pdf'),
     path('assignment/create/', views.assignment_new, name='assignment_new'),
     path('assignment/<int:pk>/edit/', views.assignment_edit, name='assignment_edit'),
     path('assignment/<int:pk>/delete/', views.assignment_delete, name='assignment_delete'),

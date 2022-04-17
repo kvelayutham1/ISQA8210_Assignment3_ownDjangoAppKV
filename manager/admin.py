@@ -2,8 +2,9 @@ from django.contrib import admin
 import csv
 import datetime
 from django.http import HttpResponse
-
+from django.urls import reverse
 # Register your models here.
+from django.utils.safestring import mark_safe
 
 from .models import Project, Employee, Client
 
@@ -34,13 +35,25 @@ def export_to_csv(modeladmin, request, queryset):
 export_to_csv.short_description = 'Export to CSV'
 
 
+def projectsummary_pdf(obj):
+    return mark_safe('<a href="{}">PDF</a>'.format(
+        reverse('admin_projectsummary_pdf', args=[obj.id])))
+
+#    url = reverse('manager.admin_projectsummary_pdf', args=[obj.id])
+#    return mark_safe(f'<a href="{url}">PDF</a>')
+
+
+projectsummary_pdf.short_description = 'ProjectSummary'
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['project_name', 'project_description', 'start_date', 'end_date', 'client_name',
-                    'SOW_no', 'total_headcount', 'manager']
+                    'SOW_no', 'total_headcount', 'manager', projectsummary_pdf]
     list_filter = ['project_name', 'client_name', 'manager']
     list_editable = ['manager', 'client_name', 'start_date', 'end_date']
     actions = [export_to_csv]
+
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
