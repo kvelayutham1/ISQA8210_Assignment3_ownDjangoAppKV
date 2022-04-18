@@ -57,7 +57,7 @@
                     <td><a href="{% url 'project_edit' pk=project.pk %}" class="btn btn-warning">Edit</a>
                     <td><a href="{% url 'project_summary' pk=project.pk %}" class="btn btn-info">Project Summary</a>
                     <td><a href="{% url 'project_delete' pk=project.pk %}"
-                        onclick="return confirm('Are you sure you want to delete?')"
+                        onclick="return confirm('Deleting the project? Your employee assignments will also be deleted. Are you sure you want to delete?')"
                         class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

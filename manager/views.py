@@ -246,10 +246,10 @@ def employee_assignment(request, pk):
 def project_summary(request, pk):
     project = get_object_or_404(Project, pk=pk)
     assignment = Assignment.objects.filter(project_name=pk)
-    employee_name = get_object_or_404(Assignment, pk=pk)
-    employee = Employee.objects.filter(employee_name=employee_name)
+#    employee_name = get_object_or_404(Assignment, pk=pk)
+#    employee = Employee.objects.filter(employee_name=employee_name)
     return render(request, 'project_summary.html',
-                  {'assignments': assignment, 'project': project, 'employee': employee})
+                  {'assignments': assignment, 'project': project})
 
 
 @login_required
@@ -287,8 +287,6 @@ def projectsummary_pdf1(obj, pk):
         reverse('admin_projectsummary_pdf1', pk, args=[obj.id])))
 
 
-
-
 projectsummary_pdf1.short_description = 'ProjectSummary'
 
 
@@ -302,5 +300,3 @@ def admin_projectlist_pdf(request):
     weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(
         settings.STATIC_ROOT + 'css/pdf.css')])
     return response
-
-

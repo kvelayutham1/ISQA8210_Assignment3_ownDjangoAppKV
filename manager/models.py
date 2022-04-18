@@ -28,7 +28,7 @@ class Project(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     client_name = models.ForeignKey(Client, related_name='client', max_length=50, blank=False, null=False, default=' ',
-                                    on_delete=models.DO_NOTHING)
+                                    on_delete=models.CASCADE)
     SOW_no = models.CharField(max_length=50, blank=False, null=False, default=' ')
     total_headcount = models.IntegerField(blank=False, null=False, default=' ')
     manager = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
